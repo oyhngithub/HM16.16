@@ -146,6 +146,7 @@ static inline std::istringstream &operator>>(std::istringstream &in, ViewPortSet
 Void TExt360AppEncCfg::xSetDefaultFramePackingParam(SVideoInfo& sVideoInfo)
 {
   if(  sVideoInfo.geoType == SVIDEO_EQUIRECT 
+	|| sVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
     || sVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA 
 #else
@@ -553,6 +554,7 @@ Void TExt360AppEncCfg::processOptions(TExt360AppEncCfg::TExt360AppEncCfgContext 
 Void TExt360AppEncCfg::xFillSourceSVideoInfo(SVideoInfo& sVidInfo, Int inputWidth, Int inputHeight)
 {
   if(  sVidInfo.geoType == SVIDEO_EQUIRECT 
+	|| sVidInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
     || sVidInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA 
 #else
@@ -698,6 +700,7 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
 {
   //calulate the coding resolution;
   if(  sourceSVideoInfo.geoType == SVIDEO_EQUIRECT 
+	|| sourceSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
     || sourceSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA
 #else
@@ -921,6 +924,7 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
       }
     }
     else if(   codingSVideoInfo.geoType ==SVIDEO_EQUIRECT 
+			|| codingSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
             || codingSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA
 #else
@@ -996,7 +1000,8 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
 #endif
            )
   { 
-    if(  codingSVideoInfo.geoType == SVIDEO_EQUIRECT 
+    if(  codingSVideoInfo.geoType == SVIDEO_EQUIRECT
+	  || codingSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
       || codingSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA 
 #else
@@ -1423,6 +1428,7 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
           }
       }
       else if (   codingSVideoInfo.geoType == SVIDEO_EQUIRECT 
+			   || codingSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
                || codingSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA
 #else
@@ -1470,6 +1476,9 @@ Void TExt360AppEncCfg::xPrintGeoTypeName(Int nType, Bool bCompactFPFormat)
   case SVIDEO_EQUIRECT:
     printf("Equirectangular ");
     break;
+  case SVIDEO_NEWUNIFORMMAP:
+	  printf("NEWUNIFORMMAP ");
+	  break;
   case SVIDEO_CUBEMAP:
     printf("Cubemap ");
     break;
@@ -1553,6 +1562,7 @@ Bool TExt360AppEncCfg::verifyParameters()
     xConfirmPara(m_faceSizeAlignment<0, "FaceSizeAlignment must be no less than 0");
     //check source;
     if(   m_sourceSVideoInfo.geoType == SVIDEO_EQUIRECT 
+	   || m_sourceSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
        || m_sourceSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA
 #else
@@ -1614,6 +1624,7 @@ Bool TExt360AppEncCfg::verifyParameters()
 #endif
     //check coding;
     if(   m_codingSVideoInfo.geoType == SVIDEO_EQUIRECT 
+	   || m_codingSVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP
 #if SVIDEO_ADJUSTED_EQUALAREA
        || m_codingSVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA
 #else

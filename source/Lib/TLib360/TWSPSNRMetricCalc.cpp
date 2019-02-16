@@ -261,7 +261,7 @@ void TWSPSNRMetric::createTable(TComPicYuv* pcPicD, TGeometry *pcCodingGeomtry)
     dChromaOffset[0] = (m_iChromaSampleLocType == 0 || m_iChromaSampleLocType == 2)? 0 : 0.5;
     dChromaOffset[1] = (m_iChromaSampleLocType == 2 || m_iChromaSampleLocType == 3)? 0 : 0.5;
   }
-  if(pcCodingGeomtry->getType()==SVIDEO_EQUIRECT)
+  if(pcCodingGeomtry->getType()==SVIDEO_EQUIRECT || SVIDEO_NEWUNIFORMMAP)//Added by MaGuilong, which is defect, replace our WS-PSNR by erp
   {
     Double fWeightSum_Y=0;
     Double fWeightSum_C=0;
@@ -2142,7 +2142,7 @@ Void TWSPSNRMetric::xCalculateWSPSNR( TComPicYuv* pcOrgPicYuv, TComPicYuv* pcPic
     for(Int y = 0; y < iHeight; y++ )
     {
         
-      if (m_codingGeoType==SVIDEO_EQUIRECT)
+      if (m_codingGeoType==SVIDEO_EQUIRECT || m_codingGeoType==SVIDEO_NEWUNIFORMMAP)
       {      
         if(!chan)
         {

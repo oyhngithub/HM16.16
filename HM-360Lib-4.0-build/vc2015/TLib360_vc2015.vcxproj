@@ -168,6 +168,7 @@
     <ClCompile Include="..\..\source\Lib\TLib360\TEquiRect.cpp" />
     <ClCompile Include="..\..\source\Lib\TLib360\TGeometry.cpp" />
     <ClCompile Include="..\..\source\Lib\TLib360\TIcosahedron.cpp" />
+    <ClCompile Include="..\..\source\Lib\TLib360\TNewUniformMap.cpp" />
     <ClCompile Include="..\..\source\Lib\TLib360\TOctahedron.cpp" />
     <ClCompile Include="..\..\source\Lib\TLib360\TPSNRMetricCalc.cpp" />
     <ClCompile Include="..\..\source\Lib\TLib360\TRotatedSphere.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\source\Lib\TLib360\TEquiRect.h" />
     <ClInclude Include="..\..\source\Lib\TLib360\TGeometry.h" />
     <ClInclude Include="..\..\source\Lib\TLib360\TIcosahedron.h" />
+    <ClInclude Include="..\..\source\Lib\TLib360\TNewUniformMap.h" />
     <ClInclude Include="..\..\source\Lib\TLib360\TOctahedron.h" />
     <ClInclude Include="..\..\source\Lib\TLib360\TPSNRMetricCalc.h" />
     <ClInclude Include="..\..\source\Lib\TLib360\TRotatedSphere.h" />

@@ -352,10 +352,10 @@ TGeometry* TGeometry::create(SVideoInfo& sVideoInfo, InputGeoParam *pInGeoParam)
   TGeometry *pRet = NULL;
   if(sVideoInfo.geoType == SVIDEO_EQUIRECT)
     pRet = new TEquiRect(sVideoInfo, pInGeoParam);
-  else if (sVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP)
-	pRet = new TNewUniformMap(sVideoInfo, pInGeoParam);
   else if(sVideoInfo.geoType == SVIDEO_CUBEMAP)
     pRet = new TCubeMap(sVideoInfo, pInGeoParam);
+  else if (sVideoInfo.geoType == SVIDEO_NEWUNIFORMMAP)
+	  pRet = new TNewUniformMap(sVideoInfo, pInGeoParam);
 #if SVIDEO_ADJUSTED_EQUALAREA
   else if(sVideoInfo.geoType == SVIDEO_ADJUSTEDEQUALAREA)
     pRet = new TAdjustedEqualArea(sVideoInfo, pInGeoParam);
@@ -755,7 +755,15 @@ Void TGeometry::interpolate_lanczos_weight(ComponentID chId, SPos *pSPosIn, PxlF
   Int y = (Int)sfloor(pSPosIn->y); 
 #endif
   ChannelType chType = toChannelType(chId);
+  //change x, y;
+  //int tmp = x;
+  //x = y;
+  //y = tmp;
+  float assert_x_1 = -(m_iMarginX >> getComponentScaleX(chId)) + m_iLanczosParamA[chType] - 1;
+  float assert_x_2 = ((m_sVideoInfo.iFaceWidth + m_iMarginX) >> getComponentScaleX(chId)) - m_iLanczosParamA[chType];
   assert(x >=- (m_iMarginX >> getComponentScaleX(chId))+m_iLanczosParamA[chType]-1 && x<((m_sVideoInfo.iFaceWidth + m_iMarginX)>>getComponentScaleX(chId))-m_iLanczosParamA[chType]);
+  float assert_y_1 = -(m_iMarginY >> getComponentScaleY(chId)) + m_iLanczosParamA[chType] - 1;
+  float assert_y_2 = ((m_sVideoInfo.iFaceHeight + m_iMarginY) >> getComponentScaleY(chId)) - m_iLanczosParamA[chType];
   assert(y >=- (m_iMarginY >> getComponentScaleY(chId))+m_iLanczosParamA[chType]-1 && y<((m_sVideoInfo.iFaceHeight + m_iMarginY)>>getComponentScaleY(chId))-m_iLanczosParamA[chType]);
 
   wlist.facePos = ((y*getStride(chId) +x)<<m_WeightMap_NumOfBits4Faces) | pSPosIn->faceIdx;
@@ -821,7 +829,7 @@ Void TGeometry::geometryMapping(TGeometry *pGeoSrc)
       ((TViewPort*)this)->setRotMat();
       ((TViewPort*)this)->setInvK();
     }
-    //generate the map;
+    //generate the map;Idea?
     for(Int fIdx=0; fIdx<m_sVideoInfo.iNumFaces; fIdx++)
     {
       for(Int ch=0; ch<iNumMaps; ch++)
@@ -847,7 +855,7 @@ Void TGeometry::geometryMapping(TGeometry *pGeoSrc)
               POSType x = (ic) * (1<<getComponentScaleX(chId));
               POSType y = (jc) * (1<<getComponentScaleY(chId)); 
               SPos in(fIdx, x, y, 0), pos3D;
-              
+
               map2DTo3D(in, &pos3D);
 #if SVIDEO_ROT_FIX
               (this->*pfuncRotation)(pos3D, pRot[0], pRot[1], pRot[2]);
