@@ -645,7 +645,8 @@ Void TExt360AppEncCfg::xFillSourceSVideoInfo(SVideoInfo& sVidInfo, Int inputWidt
 #if SVIDEO_SEC_VID_ISP3
       //if (sVidInfo.iCompactFPStructure == 1)
       {
-        sVidInfo.iFaceWidth = (2 * inputWidth - 16 * halfCol - 8 - 2 * S_CISP_PAD_HOR) / (2 * halfCol + 1);
+        //sVidInfo.iFaceWidth = (2 * inputWidth - 16 * halfCol - 8 - 2 * S_CISP_PAD_HOR) / (2 * halfCol + 1);
+		sVidInfo.iFaceWidth = (2 * inputWidth - 16 * halfCol - 8 - 4 * S_CISP_PAD_HOR) / (2 * halfCol + 1);
         sVidInfo.iFaceHeight = (inputHeight - S_CISP_PAD_VER) / sVidInfo.framePackStruct.rows;
       }
 #else
@@ -1223,8 +1224,10 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
         else if(codingSVideoInfo.geoType == SVIDEO_ICOSAHEDRON)
         {
           Int halfCol = (codingSVideoInfo.framePackStruct.cols>>1);
-          iOutputWidth  = halfCol*(codingSVideoInfo.iFaceWidth + 4) + (codingSVideoInfo.iFaceWidth>>1) + 2;
-          iOutputHeight = codingSVideoInfo.framePackStruct.rows*codingSVideoInfo.iFaceHeight;
+          //iOutputWidth  = halfCol*(codingSVideoInfo.iFaceWidth + 4) + (codingSVideoInfo.iFaceWidth>>1) + 2;
+		  iOutputWidth = (codingSVideoInfo.iFaceWidth * (2 * halfCol + 1) + 16 * halfCol + 8 + 4 * S_CISP_PAD_HOR) >> 1;
+          //iOutputHeight = codingSVideoInfo.framePackStruct.rows*codingSVideoInfo.iFaceHeight;
+		  iOutputHeight = codingSVideoInfo.iFaceHeight * codingSVideoInfo.framePackStruct.rows + S_CISP_PAD_VER;
         }
       } 
     }
