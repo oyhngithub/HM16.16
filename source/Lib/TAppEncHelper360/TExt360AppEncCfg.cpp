@@ -1218,8 +1218,11 @@ Void TExt360AppEncCfg::xCalcOutputResolution(SVideoInfo& sourceSVideoInfo, SVide
       {
         if(codingSVideoInfo.geoType == SVIDEO_OCTAHEDRON)
         {
-          iOutputWidth  = (codingSVideoInfo.iFaceWidth + 4)*codingSVideoInfo.framePackStruct.cols;
-          iOutputHeight = (codingSVideoInfo.iFaceHeight>>1)*codingSVideoInfo.framePackStruct.rows;
+          //iOutputWidth  = (codingSVideoInfo.iFaceWidth + 4)*codingSVideoInfo.framePackStruct.cols;
+			iOutputHeight = (codingSVideoInfo.iFaceWidth + 4)*codingSVideoInfo.framePackStruct.cols;
+          //iOutputHeight = (codingSVideoInfo.iFaceHeight>>1)*codingSVideoInfo.framePackStruct.rows;
+			iOutputWidth = (codingSVideoInfo.iFaceHeight >> 1)*codingSVideoInfo.framePackStruct.rows;
+			iOutputHeight += (S_COHP1_PAD << 1);
         }
         else if(codingSVideoInfo.geoType == SVIDEO_ICOSAHEDRON)
         {
