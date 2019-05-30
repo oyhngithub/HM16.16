@@ -1,1 +1,2 @@
-# HM16.16
+# 360 video projection
+Implementation of SUM projection from the paper: Guo, J., Q. K. Pei, G. L. Ma, L. Liu, and X. Y. Zhang. "A New Uniform Format for 360 VR Videos." In Computer Graphics Forum, vol. 37, no. 7, pp. 245-253. 2018.
